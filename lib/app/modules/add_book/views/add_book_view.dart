@@ -13,12 +13,61 @@ class AddBookView extends GetView<AddBookController> {
         title: const Text('AddBookView'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'AddBookView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: Center(
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: controller.judulController,
+                  decoration: InputDecoration(hintText: "Masukkan Judul buku"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "judul tidak boleh kosong";
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: controller.penulisController,
+                  decoration: InputDecoration(hintText: "Masukkan Penulis"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "penulis tidak boleh kosong";
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: controller.penerbitController,
+                  decoration: InputDecoration(hintText: "Masukkan Penerbit"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "penerbit tidak boleh kosong";
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: controller.tahunTerbitController,
+                  decoration: InputDecoration(hintText: "Masukkan Tahun Terbit"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "tahun terbit tidak boleh kosong";
+                    }
+                    return null;
+                  },
+                ),
+                Obx(() => controller.loading.value
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                    onPressed: () {
+                      controller.postBook();
+                    },
+                    child: Text("Login")))
+              ],
+            ),
+          )),
     );
   }
 }
